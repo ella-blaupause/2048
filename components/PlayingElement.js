@@ -15,6 +15,16 @@ const StyledPlayingElement = styled.div`
     left: calc(var(--x)*(20vmin + 2vmin) + 2vmin);
     font-weight: bolder;
     background-color: hsl(160, 50%, 20%);
+    animation: show 200ms ease-in-out;
+    transition: 100ms ease-in-out;
+
+    @keyframes show {
+        0%{
+            opacity: 0.5;
+            transform: scale(0);
+        }
+
+    }
 `
 
 export default function PlayingElement(){
