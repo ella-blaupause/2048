@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Cell from "@/components/Cell";
+import PlayingElement from "@/components/PlayingElement";
 
 const GameBoard = styled.div`
     display: grid;
@@ -15,6 +16,7 @@ const GameBoard = styled.div`
 
 export default function HomePage() {
   return (
+
     <GameBoard>
       <Cell></Cell>
       <Cell></Cell>
@@ -32,6 +34,7 @@ export default function HomePage() {
       <Cell></Cell>
       <Cell></Cell>
       <Cell></Cell>
+      <PlayingElement/>
     </GameBoard>
   );
 }

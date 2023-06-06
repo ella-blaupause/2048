@@ -15,6 +15,7 @@ export default createGlobalStyle`
     justify-content: center;
     align-items: center;
     height: 100vh;
+    margin: 0;
     font-size: 7.5vmin;
   }
 `;
