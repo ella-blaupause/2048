@@ -3,7 +3,6 @@ import styled from "styled-components"
 const StyledPlayingElement = styled.div`
     --x:2;
     --y:3;
-    background-color: darkviolet;
     position: absolute;
     display: flex;
     justify-content: center;
@@ -27,6 +26,6 @@ const StyledPlayingElement = styled.div`
     }
 `
 
-export default function PlayingElement(){
+export default function Tile(){
     return <StyledPlayingElement>2</StyledPlayingElement>
 }

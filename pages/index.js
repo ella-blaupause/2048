@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import Cell from "@/components/Cell";
-import PlayingElement from "@/components/PlayingElement";
+import Cell from "/components/Cell";
+import Tile from "/components/Tile";
 
 const GameBoard = styled.div`
     display: grid;
@@ -34,7 +34,7 @@ export default function HomePage() {
       <Cell></Cell>
       <Cell></Cell>
       <Cell></Cell>
-      <PlayingElement/>
+      <Tile/>
     </GameBoard>
   );
 }
