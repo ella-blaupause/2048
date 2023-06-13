@@ -1,8 +1,8 @@
 import styled from "styled-components"
 
 const StyledPlayingElement = styled.div`
-    --x:2;
-    --y:3;
+    --x:${(props)=> props.xPosition};
+    --y:${(props)=> props.yPosition};
     position: absolute;
     display: flex;
     justify-content: center;
@@ -26,6 +26,6 @@ const StyledPlayingElement = styled.div`
     }
 `
 
-export default function Tile(){
-    return <StyledPlayingElement>2</StyledPlayingElement>
+export default function Tile({xPosition, yPosition}){
+    return <StyledPlayingElement xPosition={xPosition} yPosition={yPosition}>2</StyledPlayingElement>
 }

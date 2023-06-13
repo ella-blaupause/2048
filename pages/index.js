@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Cell from "/components/Cell";
 import Tile from "/components/Tile";
-import { Fragment, useState } from "react";
+import { Fragment, useRef, useState } from "react";
 
 const StyledGameBoard = styled.div`
     display: grid;
@@ -16,9 +16,19 @@ const StyledGameBoard = styled.div`
 `
 
 export default function HomePage() {
-  const [board, setBoard] = useState([[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]);
+  const [board, setBoard] = useState([[0,2,0,0],[0,2,0,0],[0,0,2,0],[0,0,0,0]]);
+  const position = [];
 
-  
+  for (let row = 0; row < 4; row++){
+    for (let column = 0; column < 4; column++){
+      let number = board[row][column];
+      if (number > 0){
+        position.push([column, row])
+      }
+    }
+  }
+
+  console.log(position)
 
   return (
     <StyledGameBoard>
@@ -27,7 +37,10 @@ export default function HomePage() {
               return (
                 <Fragment key={columnIndex}>
                   <Cell />
-                  <Tile/>
+                  {position.map((p,pIndex)=>{
+                    return <Tile key={pIndex} xPosition={position[pIndex][0]} yPosition={position[pIndex][1]}/>
+                  })}
+                  
                 </Fragment>
                   )
             })
