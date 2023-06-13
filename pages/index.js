@@ -20,7 +20,7 @@ const StyledGameBoard = styled.div`
 export default function HomePage() {
   const [board, setBoard] = useState([[2,2,2,2],
                                       [2,2,2,2],
-                                      [8,0,0,0],
+                                      [4,4,4,4],
                                       [0,16,0,0]]);
   const [pressedKey, setPressedKey] = useState(null);
   const position = [];
@@ -56,6 +56,9 @@ export default function HomePage() {
   if (pressedKey === "ArrowLeft"){
     slideLeft();
     setPressedKey(null)
+  }else if (pressedKey === "ArrowRight"){
+    slideRight();
+    setPressedKey(null)
   }
 
   function filteredZeros(row){
@@ -89,6 +92,18 @@ export default function HomePage() {
     for(let r = 0; r < 4; r++){
       let row = board[r];
       row = slide(row);
+      boardTemp.push(row)
+    }
+    setBoard(boardTemp);
+  }
+
+  function slideRight(){
+    let boardTemp = [];
+    for(let r = 0; r < 4; r++){
+      let row = board[r];
+      row.reverse();
+      row = slide(row);
+      row.reverse();
       boardTemp.push(row)
     }
     setBoard(boardTemp);
