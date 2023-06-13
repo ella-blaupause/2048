@@ -46,7 +46,6 @@ export default function HomePage() {
 
     window.addEventListener("keydown", handleKeyDown);
 
-    // Event-Listener entfernen, wenn das Komponenten-Unmounted wird
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
@@ -59,32 +58,36 @@ export default function HomePage() {
   }else if (pressedKey === "ArrowRight"){
     slideRight();
     setPressedKey(null)
+  }else if(pressedKey === "ArrowUp"){
+    slideUp();
+    setPressedKey(null);
   }
 
-  function filteredZeros(row){
-    return row.filter(number => number !== 0)
+
+  function filteredZeros(axis){
+    return axis.filter(number => number !== 0)
   }
 
 
-  function slide(row){
-    row = filteredZeros(row);
+  function slide(axis){
+    axis = filteredZeros(axis);
     
     //slide
-    for (let i = 0; i < row.length - 1; i++){
+    for (let i = 0; i < axis.length - 1; i++){
       // check every 2
-      if(row[i] === row[i+1]){
-        row[i] *= 2;
-        row[i+1] = 0;
+      if(axis[i] === axis[i+1]){
+        axis[i] *= 2;
+        axis[i+1] = 0;
       }
     }
    
-    row = filteredZeros(row);
+    axis = filteredZeros(axis);
 
     // add Zeros
-    while(row.length < 4){
-      row.push(0)
+    while(axis.length < 4){
+      axis.push(0)
     }
-    return row;
+    return axis;
   }
 
   function slideLeft(){
@@ -110,6 +113,23 @@ export default function HomePage() {
   }
 
 
+  function slideUp(){
+    let boardTemp = [[],[],[],[]];
+    
+    for(let c = 0; c < 4; c++){
+      let column = [board[0][c], board[1][c],board[2][c], board[3][c]];
+      column = slide(column);
+      console.log("column: ",column)
+      boardTemp[0].push(column[0]);
+      boardTemp[1].push(column[1]);
+      boardTemp[2].push(column[2]);
+      boardTemp[3].push(column[3]);
+
+      console.log(boardTemp);
+      
+    }
+    setBoard(boardTemp);
+  }
   return (
     <StyledGameBoard>
        { [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0].map((cell, Index)=>{
