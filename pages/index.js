@@ -97,7 +97,6 @@ export default function HomePage() {
     let boardTemp = [];
     for(let r = 0; r < 4; r++){
       let row = board[r];
-      console.log("rowLeft: ", row)
       row = slide(row);
       boardTemp.push(row)
     }
@@ -106,17 +105,16 @@ export default function HomePage() {
 
   function slideRight(){
     let boardTemp = [];
-    let row = [];
-    console.log("board: ", board)
+    
     for(let r = 0; r < 4; r++){
-     row = board[r];
-      console.log("row: ", row)
+      let row = board[r];
+      
       row.sort((a,b)=> b-a)
       row = slide(row);
       row.reverse();
       boardTemp.push(row)
     }
-    console.log(boardTemp)
+  
     setBoard(boardTemp);
   }
 
