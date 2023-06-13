@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Cell from "/components/Cell";
 import Tile from "/components/Tile";
-import { Fragment, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 
 const StyledGameBoard = styled.div`
     display: grid;
@@ -15,8 +15,14 @@ const StyledGameBoard = styled.div`
     position: relative;
 `
 
+
+
 export default function HomePage() {
-  const [board, setBoard] = useState([[0,2,0,4],[4,0,0,0],[8,0,0,0],[0,16,0,0]]);
+  const [board, setBoard] = useState([[2,2,2,2],
+                                      [2,2,2,2],
+                                      [8,0,0,0],
+                                      [0,16,0,0]]);
+  const [pressedKey, setPressedKey] = useState(null);
   const position = [];
   const numberArray=[];
 
@@ -31,7 +37,63 @@ export default function HomePage() {
     }
   }
 
-  console.log(position)
+ 
+
+  useEffect(() => {
+    function handleKeyDown(event) {
+      setPressedKey(event.key);
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    // Event-Listener entfernen, wenn das Komponenten-Unmounted wird
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+  console.log("Taste gedrückt:", pressedKey);
+
+  if (pressedKey === "ArrowLeft"){
+    slideLeft();
+    setPressedKey(null)
+  }
+
+  function filteredZeros(row){
+    return row.filter(number => number !== 0)
+  }
+
+
+  function slide(row){
+    row = filteredZeros(row);
+    
+    //slide
+    for (let i = 0; i < row.length - 1; i++){
+      // check every 2
+      if(row[i] === row[i+1]){
+        row[i] *= 2;
+        row[i+1] = 0;
+      }
+    }
+   
+    row = filteredZeros(row);
+
+    // add Zeros
+    while(row.length < 4){
+      row.push(0)
+    }
+    return row;
+  }
+
+  function slideLeft(){
+    let boardTemp = [];
+    for(let r = 0; r < 4; r++){
+      let row = board[r];
+      row = slide(row);
+      boardTemp.push(row)
+    }
+    setBoard(boardTemp);
+  }
+
 
   return (
     <StyledGameBoard>
