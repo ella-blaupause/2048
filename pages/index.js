@@ -16,14 +16,17 @@ const StyledGameBoard = styled.div`
 `
 
 export default function HomePage() {
-  const [board, setBoard] = useState([[0,2,0,0],[0,2,0,0],[0,0,2,0],[0,0,0,0]]);
+  const [board, setBoard] = useState([[0,2,0,4],[4,0,0,0],[8,0,0,0],[0,16,0,0]]);
   const position = [];
+  const numberArray=[];
 
   for (let row = 0; row < 4; row++){
     for (let column = 0; column < 4; column++){
       let number = board[row][column];
+      
       if (number > 0){
         position.push([column, row])
+        numberArray.push(number)
       }
     }
   }
@@ -32,19 +35,13 @@ export default function HomePage() {
 
   return (
     <StyledGameBoard>
-       {[0,0,0,0].map((row, rowIndex)=> 
-            [0,0,0,0].map((column, columnIndex)=>{
-              return (
-                <Fragment key={columnIndex}>
-                  <Cell />
-                  {position.map((p,pIndex)=>{
-                    return <Tile key={pIndex} xPosition={position[pIndex][0]} yPosition={position[pIndex][1]}/>
-                  })}
-                  
-                </Fragment>
-                  )
+       { [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0].map((cell, Index)=>{
+              return <Cell key={Index}/>
             })
-       )} 
+       } 
+       {position.map((p,pIndex)=>{    
+                return <Tile key={pIndex} xPosition={position[pIndex][0]} yPosition={position[pIndex][1]} number={numberArray[pIndex]}/>
+             })}
       
     </StyledGameBoard>
   );

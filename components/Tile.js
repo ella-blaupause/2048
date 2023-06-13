@@ -26,6 +26,6 @@ const StyledPlayingElement = styled.div`
     }
 `
 
-export default function Tile({xPosition, yPosition}){
-    return <StyledPlayingElement xPosition={xPosition} yPosition={yPosition}>2</StyledPlayingElement>
+export default function Tile({xPosition, yPosition, number}){
+    return <StyledPlayingElement xPosition={xPosition} yPosition={yPosition}>{number}</StyledPlayingElement>
 }
