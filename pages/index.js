@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import Cell from "/components/Cell";
 import Tile from "/components/Tile";
+import { Fragment, useState } from "react";
 
-const GameBoard = styled.div`
+const StyledGameBoard = styled.div`
     display: grid;
     grid-template-columns: repeat(4,20vmin);
     grid-template-rows: repeat(4, 20vmin);
@@ -15,26 +16,23 @@ const GameBoard = styled.div`
 `
 
 export default function HomePage() {
-  return (
+  const [board, setBoard] = useState([[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]);
 
-    <GameBoard>
-      <Cell></Cell>
-      <Cell></Cell>
-      <Cell></Cell>
-      <Cell></Cell>
-      <Cell></Cell>
-      <Cell></Cell>
-      <Cell></Cell>
-      <Cell></Cell>
-      <Cell></Cell>
-      <Cell></Cell>
-      <Cell></Cell>
-      <Cell></Cell>
-      <Cell></Cell>
-      <Cell></Cell>
-      <Cell></Cell>
-      <Cell></Cell>
-      <Tile/>
-    </GameBoard>
+  
+
+  return (
+    <StyledGameBoard>
+       {[0,0,0,0].map((row, rowIndex)=> 
+            [0,0,0,0].map((column, columnIndex)=>{
+              return (
+                <Fragment key={columnIndex}>
+                  <Cell />
+                  <Tile/>
+                </Fragment>
+                  )
+            })
+       )} 
+      
+    </StyledGameBoard>
   );
 }
