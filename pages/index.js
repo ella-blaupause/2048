@@ -16,12 +16,11 @@ const StyledGameBoard = styled.div`
 `
 
 
-
 export default function HomePage() {
-  const [board, setBoard] = useState([[2,2,2,2],
-                                      [2,2,2,2],
-                                      [4,4,4,4],
-                                      [0,16,0,0]]);
+  const [board, setBoard] = useState([[0,0,0,0],
+                                      [0,0,0,0],
+                                      [0,0,0,0],
+                                      [0,0,0,0]]);
   const [pressedKey, setPressedKey] = useState(null);
   const position = [];
   const numberArray=[];
@@ -55,15 +54,18 @@ export default function HomePage() {
   if (pressedKey === "ArrowLeft"){
     slideLeft();
     setPressedKey(null);
+    setTwoOrFour();
   }else if (pressedKey === "ArrowRight"){
     slideRight();
     setPressedKey(null);
+    setTwoOrFour();
   }else if (pressedKey === "ArrowUp"){
     slideUp();
     setPressedKey(null);
   }else if (pressedKey === "ArrowDown"){
     slideDown();
     setPressedKey(null);
+    setTwoOrFour();
   }
 
 
@@ -101,6 +103,7 @@ export default function HomePage() {
       boardTemp.push(row)
     }
     setBoard(boardTemp);
+  
   }
 
   function slideRight(){
@@ -116,6 +119,7 @@ export default function HomePage() {
     }
   
     setBoard(boardTemp);
+  
   }
 
 
@@ -132,6 +136,7 @@ export default function HomePage() {
       boardTemp[3].push(column[3]);
     }
     setBoard(boardTemp);
+    
   }
 
   function slideDown(){
@@ -148,11 +153,47 @@ export default function HomePage() {
       boardTemp[3].push(column[3]);
     }
     setBoard(boardTemp);
+    
   }
 
+  function hasEmtyTile(){
+    for(let r = 0; r < 4; r++){
+      for(let c = 0; c < 4; c++){
+        if (board[r][c] === 0){
+          return true;
+        }
+        return false;
+      }
+    }
+  }
+
+
+
+  function setTwoOrFour(){
+    if(!hasEmtyTile()){
+      return;
+    }
+
+    let found = false;
+
+    while(!found){
+      let boardTemp = board
+      let r = Math.floor(Math.random()*4);
+      let c = Math.floor(Math.random()*4);
+      
+      if(boardTemp[r][c] === 0){
+        boardTemp[r][c] = Math.random() > 0.5 ? 2 : 4;
+        setBoard(boardTemp)
+        found = true;
+      }
+    }
+  }
+ 
+  
   
 
   return (
+  
     <StyledGameBoard>
        { [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0].map((cell, Index)=>{
               return <Cell key={Index}/>
@@ -163,5 +204,6 @@ export default function HomePage() {
              })}
       
     </StyledGameBoard>
+    
   );
 }
