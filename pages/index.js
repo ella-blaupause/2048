@@ -61,6 +61,9 @@ export default function HomePage() {
   }else if(pressedKey === "ArrowUp"){
     slideUp();
     setPressedKey(null);
+  }else if(pressedKey === "ArrowDown"){
+    slideDown();
+    setPressedKey();
   }
 
 
@@ -124,12 +127,26 @@ export default function HomePage() {
       boardTemp[1].push(column[1]);
       boardTemp[2].push(column[2]);
       boardTemp[3].push(column[3]);
-
-      console.log(boardTemp);
-      
     }
     setBoard(boardTemp);
   }
+
+  function slideDown(){
+    let boardTemp = [[],[],[],[]];
+    
+    for(let c = 0; c < 4; c++){
+      let column = [board[0][c], board[1][c],board[2][c], board[3][c]];
+      column.reverse()
+      column = slide(column);
+      column.reverse();
+      boardTemp[0].push(column[0]);
+      boardTemp[1].push(column[1]);
+      boardTemp[2].push(column[2]);
+      boardTemp[3].push(column[3]);
+    }
+    setBoard(boardTemp);
+  }
+
   return (
     <StyledGameBoard>
        { [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0].map((cell, Index)=>{
