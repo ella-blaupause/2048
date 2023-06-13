@@ -50,30 +50,30 @@ export default function HomePage() {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
-  console.log("Taste gedrückt:", pressedKey);
+  
 
   if (pressedKey === "ArrowLeft"){
     slideLeft();
-    setPressedKey(null)
+    setPressedKey(null);
   }else if (pressedKey === "ArrowRight"){
     slideRight();
-    setPressedKey(null)
-  }else if(pressedKey === "ArrowUp"){
+    setPressedKey(null);
+  }else if (pressedKey === "ArrowUp"){
     slideUp();
     setPressedKey(null);
-  }else if(pressedKey === "ArrowDown"){
+  }else if (pressedKey === "ArrowDown"){
     slideDown();
-    setPressedKey();
+    setPressedKey(null);
   }
 
 
-  function filteredZeros(axis){
+  function filterZero(axis){
     return axis.filter(number => number !== 0)
   }
 
 
   function slide(axis){
-    axis = filteredZeros(axis);
+    axis = filterZero(axis);
     
     //slide
     for (let i = 0; i < axis.length - 1; i++){
@@ -84,7 +84,7 @@ export default function HomePage() {
       }
     }
    
-    axis = filteredZeros(axis);
+    axis = filterZero(axis);
 
     // add Zeros
     while(axis.length < 4){
@@ -97,6 +97,7 @@ export default function HomePage() {
     let boardTemp = [];
     for(let r = 0; r < 4; r++){
       let row = board[r];
+      console.log("rowLeft: ", row)
       row = slide(row);
       boardTemp.push(row)
     }
@@ -105,13 +106,17 @@ export default function HomePage() {
 
   function slideRight(){
     let boardTemp = [];
+    let row = [];
+    console.log("board: ", board)
     for(let r = 0; r < 4; r++){
-      let row = board[r];
-      row.reverse();
+     row = board[r];
+      console.log("row: ", row)
+      row.sort((a,b)=> b-a)
       row = slide(row);
       row.reverse();
       boardTemp.push(row)
     }
+    console.log(boardTemp)
     setBoard(boardTemp);
   }
 
@@ -122,7 +127,7 @@ export default function HomePage() {
     for(let c = 0; c < 4; c++){
       let column = [board[0][c], board[1][c],board[2][c], board[3][c]];
       column = slide(column);
-      console.log("column: ",column)
+    
       boardTemp[0].push(column[0]);
       boardTemp[1].push(column[1]);
       boardTemp[2].push(column[2]);
@@ -146,6 +151,8 @@ export default function HomePage() {
     }
     setBoard(boardTemp);
   }
+
+  
 
   return (
     <StyledGameBoard>
